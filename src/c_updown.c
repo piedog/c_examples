@@ -3,8 +3,7 @@
 
 
 #define UpDown_MIN 0
-#define UpDown_MAX 255
-#define UpDown_CHANGE -1
+#define UpDown_MAX 15
 
 typedef struct _UpDown {
     int direction;
@@ -20,7 +19,7 @@ int get_current(UpDown_t *r);
 int main(int argc, char** argv)
 {
     int i;
-    int N = 512;
+    int N = 511;
     UpDown_t *ud = create();
     fprintf(stdout,"Up-Down test\n");
 
@@ -55,20 +54,10 @@ void destroy(UpDown_t *ud)
     
 int get_current(UpDown_t *ud)
 {
-    int temp;
-    if (ud->value == UpDown_MIN) {
-        ud->direction *= UpDown_CHANGE;
-        temp = ud->value;
-        ud->value += ud->direction;
-        return temp;
+    int temp = ud->value;
+    if (ud->value == UpDown_MIN || ud->value == UpDown_MAX) {
+        ud->direction *= -1;
     }
-    else if (ud->value == UpDown_MAX) {
-        ud->direction *= UpDown_CHANGE;
-        temp = ud->value;
-        ud->value += ud->direction;
-        return temp;
-    }
-    temp = ud->value;
-    ud->value+= ud->direction;
+    ud->value += ud->direction;
     return temp;
 }
