@@ -2,16 +2,15 @@
 #include <stdlib.h>
 
 
-#define UpDown_MIN 0
-#define UpDown_MAX 15
-
 typedef struct _UpDown {
     int direction;
     int value;
+    int lower;
+    int upper;
 } UpDown_t;
 
 
-UpDown_t *create();
+UpDown_t *create(int lower, int upper);
 void destroy(UpDown_t *r);
 int get_current(UpDown_t *r);
 /** ----------------------------------------------------- **/
@@ -20,7 +19,7 @@ int main(int argc, char** argv)
 {
     int i;
     int N = 511;
-    UpDown_t *ud = create();
+    UpDown_t *ud = create(0,255);
     fprintf(stdout,"Up-Down test\n");
 
     for (i=0;i<N;i++) {
@@ -32,7 +31,7 @@ int main(int argc, char** argv)
 }
 
 
-UpDown_t *create()
+UpDown_t *create(int lower, int upper)
 {
     UpDown_t *ud = malloc(sizeof(UpDown_t));
     if (!ud) {
@@ -40,7 +39,9 @@ UpDown_t *create()
         exit(1);
     }
     ud->direction = -1;
-    ud->value = UpDown_MIN;
+    ud->value = lower;
+    ud->lower = lower;
+    ud->upper = upper;
     return ud;
 }
 
@@ -55,7 +56,7 @@ void destroy(UpDown_t *ud)
 int get_current(UpDown_t *ud)
 {
     int temp = ud->value;
-    if (ud->value == UpDown_MIN || ud->value == UpDown_MAX) {
+    if (ud->value == ud->lower || ud->value == ud->upper) {
         ud->direction *= -1;
     }
     ud->value += ud->direction;
