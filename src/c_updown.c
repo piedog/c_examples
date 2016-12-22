@@ -1,3 +1,20 @@
+/*
+    Develop a function that returns an integer value. The first time called, a zero is returned.
+    On each subsequent call, the result returned is incremented by 1 until after it becomes 255.
+    At this point, each subsequent call decrements the result, until after it becomes zero. At
+    which point, the result is incremented, and so on.
+        0, 1, ..., 254, 255, 254, ..., 1, 0, 1, ...
+
+    Algorithm:
+
+    Initialize the result to 0 (this will be the current result)
+    Initialize the direction to down (-1)
+    Save the current result in a temporary variable
+    If the current result is either 0 or 255, then reverse direction by multiplying the direction by -1
+    Add the direction value to the result
+        Obviously, decrementing will occur when direction is -1, and incrementing will occur if +1
+    Return the saved result
+ */
 #include <stdio.h>
 #include <stdlib.h>
 
