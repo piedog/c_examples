@@ -1,0 +1,3 @@
+1. In function get_current(), check that the ud pointer is null
+   What technique should be used for testing?  Assert or if test.
+   What should the behavior be if an if test.
